@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { pool } from './db'
-import { RouteMethod } from './domain/interficies/RouteMethodEnum';
+import { RouteMethod } from './domain/enums/RouteMethodEnum';
 import { Route } from './domain/interficies/Route'
 import RequestHandler from './hanlder';
 import { routes } from './routes';
@@ -29,11 +29,11 @@ class App {
 
     private setRoute() {
         const getRequest = (route: Route) =>{
-            this.app.get(route.endpoint, async(req: Request, res: Response)=>{
+            this.app.get(route.endpoint, route.middlewares, async(req: Request, res: Response)=>{
                 console.log('GET', req.path)
                 console.log('Query params =', req.query)
                 console.log('Path params =', req.params)
-                
+
                 const response = await new RequestHandler(route, req, pool).call()
                 res.send(response)
                 // res.json(response)
@@ -41,7 +41,7 @@ class App {
         }
 
         const putRequest = (route: Route) =>{
-            this.app.put(route.endpoint, async(req: Request, res: Response)=>{
+            this.app.put(route.endpoint, route.middlewares, async(req: Request, res: Response)=>{
                 console.log('PUT', req.path)
                 console.log('Query params =', req.query)
                 console.log('Path params =', req.params)
@@ -53,23 +53,23 @@ class App {
         }
 
         const postRequest = (route: Route) =>{
-            this.app.post(route.endpoint, async(req: Request, res: Response)=>{
+            this.app.post(route.endpoint, route.middlewares, async(req: Request, res: Response)=>{
                 console.log('POST', req.path)
                 console.log('Query params =', req.query)
                 console.log('Path params =', req.params)
                 console.log('Poost body =', req.body)
-                
+
                 const response = await new RequestHandler(route, req, pool).call()
-                res.send(response)   
+                res.send(response) 
             })
         }
 
         const deleteRequest = (route: Route) =>{
-            this.app.delete(route.endpoint, async(req: Request, res: Response)=>{
+            this.app.delete(route.endpoint, route.middlewares, async(req: Request, res: Response)=>{
                 console.log('DELETE', req.path)
                 console.log('Query params =', req.query)
                 console.log('Path params =', req.params)
-                
+
                 const response = await new RequestHandler(route, req, pool).call()
                 res.send(response)
             })

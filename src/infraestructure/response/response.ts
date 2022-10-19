@@ -31,7 +31,7 @@ export class GeneralErrorResponse extends BaseResponse{
             error.statusCode ??= 500,
             error.statusText ??= 'Error',
             {
-                error: error.message, 
+                error: error.bodyError, 
             }
         )
     }
