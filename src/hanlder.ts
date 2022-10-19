@@ -27,7 +27,7 @@ export default class RequestHandler{
         } catch (err: any) {
             const response = new GeneralErrorResponse(
                 new InternalServerException(
-                    `Internal server error: ${err.errors}`
+                    `${err.errors}`
                 ),
             ).create()
         }
@@ -43,17 +43,21 @@ export default class RequestHandler{
         if(!valid){
             let message = '';
 
-            validate.errors?.forEach((error) => {
+            validate.errors?.forEach((error, i: number) => {
                 const paramError = Object.entries(error.params)[0]
                 const paramErrorKey = paramError[0].charAt(0).toUpperCase() + paramError[0].slice(1)
                 const paramErrorValue = paramError[1]
 
-                message += ` ${paramErrorKey}:'${paramErrorValue}', ${error.message}.`
+                message += `${paramErrorKey}:'${paramErrorValue}', ${error.message}.`
+                
+                if(!(validate.errors?.length === i+1)){
+                    message += ' '
+                }
             })
 
             return new GeneralErrorResponse(
                 new InvalidBodyException(
-                    `Invalid request body:${message}`
+                    message
                 ),
             ).create()
         }

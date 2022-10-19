@@ -2,17 +2,21 @@ import { APIrespopnse } from "../../domain/interficies/APIresponse";
 
 export class BaseResponse{
     private readonly statusCode: number;
-    private readonly bodObject: object;
+    private readonly dataObject: object;
+    private readonly statusText: string;
 
-    constructor(statusCode: number, bodObject: object){
+
+    constructor(statusCode: number, statusText: string, dataObject: object){
         this.statusCode = statusCode;
-        this.bodObject = bodObject;
+        this.statusText = statusText;
+        this.dataObject = dataObject;
     }
 
     public create(): APIrespopnse{
         const response = {
-            statusCode: this.statusCode,
-            body: this.bodObject
+            status: this.statusCode,
+            statusText: this.statusText,
+            data: this.dataObject
         }
 
         console.log({response})
@@ -25,9 +29,9 @@ export class GeneralErrorResponse extends BaseResponse{
     constructor(error: any){
         super(
             error.statusCode ??= 500,
+            error.statusText ??= 'Error',
             {
-                message: error.message,
-                result: 'Failure'
+                error: error.message, 
             }
         )
     }

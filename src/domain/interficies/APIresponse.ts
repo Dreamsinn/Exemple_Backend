@@ -1,4 +1,5 @@
 export interface APIrespopnse{
-    statusCode: number,
-    body: object
+    status: number,
+    statusText: string,
+    data: object
 }
