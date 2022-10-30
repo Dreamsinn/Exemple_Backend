@@ -5,7 +5,7 @@ import {
     InternalServerException,
     InvalidRequestException,
 } from './infraestructure/response/errors';
-import Ajv from 'ajv';
+import Ajv, { AnySchema } from 'ajv';
 import { validationResult } from 'express-validator';
 import { ErrorData } from './domain/interficies/ErrorData';
 import { ErrorLocation } from './domain/enums/ErrorLocationEnum';
@@ -45,7 +45,8 @@ export default class RequestHandler {
         }
 
         if (this.route.schema) {
-            requestErrors = this.bodyValitation(requestErrors);
+            const schema: AnySchema = this.route.schema;
+            requestErrors = this.bodyValitation(requestErrors, schema);
         }
 
         return {
@@ -74,10 +75,10 @@ export default class RequestHandler {
         return requestErrors;
     }
 
-    private bodyValitation(requestErrors: ErrorData[]) {
+    private bodyValitation(requestErrors: ErrorData[], schema: AnySchema) {
         const ajv = new Ajv({ allErrors: true });
 
-        const validate = ajv.compile(this.route.schema);
+        const validate = ajv.compile(schema);
 
         const valid = validate(this.request.body);
 
