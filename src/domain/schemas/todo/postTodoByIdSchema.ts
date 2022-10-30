@@ -1,16 +1,18 @@
-import {JSONSchemaType} from "ajv"
+/** @format */
+
+import { JSONSchemaType } from 'ajv';
 
 interface PostTodoyById {
-  description: string
+    description: string;
 }
 
 export const postTodoByIdSchema: JSONSchemaType<PostTodoyById> = {
-    type: "object",
-  
+    type: 'object',
+
     properties: {
-      "description": { "type": "string" },
+        description: { type: 'string' },
     },
-  
-    required: ["description"],
-    additionalProperties: false
-}
+
+    required: ['description'],
+    additionalProperties: false,
+};

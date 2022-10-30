@@ -1,5 +1,7 @@
-export class GetAllTodos{
+/** @format */
+
+export class GetAllTodos {
     public call(req: any) {
-        console.log('ejecucion')
+        console.log('ejecucion');
     }
 }

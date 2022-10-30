@@ -1,2 +1,4 @@
-export { GetAllTodos } from './todo/getAllTodos'
-export { GetTodoById } from './todo/getTodoById'
+/** @format */
+
+export { GetAllTodos } from './todo/getAllTodos';
+export { GetTodoById } from './todo/getTodoById';

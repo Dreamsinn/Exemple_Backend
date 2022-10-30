@@ -1,50 +1,52 @@
-import { RouteMethod } from "./domain/enums/RouteMethodEnum";
-import { Route } from "./domain/interficies/Route";
-import { selectByIdMiddleware, getTodoByIdMiddleware } from "./domain/middlewares/";
-import { GetAllTodos, GetTodoById } from './use-cases'
-import { postTodoByIdSchema } from './domain/schemas'
+/** @format */
 
+import { RouteMethod } from './domain/enums/RouteMethodEnum';
+import { Route } from './domain/interficies/Route';
+import {
+    selectByIdMiddleware,
+    getTodoByIdMiddleware,
+} from './domain/middlewares/';
+import { GetAllTodos, GetTodoById } from './use-cases';
+import { postTodoByIdSchema } from './domain/schemas';
 
 const todoRoutes: Route[] = [
     {
         endpoint: '/todo',
         method: RouteMethod.GET,
-        handler: new GetAllTodos,
-        middlewares: []
+        handler: new GetAllTodos(),
+        middlewares: [],
     },
     {
         endpoint: '/todo/:id',
         method: RouteMethod.GET,
-        handler: new GetTodoById,
-        middlewares: getTodoByIdMiddleware
+        handler: new GetTodoById(),
+        middlewares: getTodoByIdMiddleware,
     },
     {
         endpoint: '/todo',
         method: RouteMethod.POST,
-        handler: new GetTodoById,
-        middlewares: []
+        handler: new GetTodoById(),
+        middlewares: [],
     },
     {
         endpoint: '/todo',
         method: RouteMethod.POST,
-        handler: new GetTodoById,
-        middlewares: []
+        handler: new GetTodoById(),
+        middlewares: [],
     },
     {
         endpoint: '/todo/:id',
         method: RouteMethod.PUT,
-        handler: new GetTodoById,
+        handler: new GetTodoById(),
         schema: postTodoByIdSchema,
-        middlewares: selectByIdMiddleware
+        middlewares: selectByIdMiddleware,
     },
     {
         endpoint: '/todo/:id',
         method: RouteMethod.DELETE,
-        handler: new GetTodoById,
-        middlewares: selectByIdMiddleware
-    }
-]
+        handler: new GetTodoById(),
+        middlewares: selectByIdMiddleware,
+    },
+];
 
-export const routes: Route[] = [
-    ...todoRoutes
-]
+export const routes: Route[] = [...todoRoutes];

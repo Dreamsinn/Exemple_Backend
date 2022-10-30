@@ -1,2 +1,4 @@
-export { selectByIdMiddleware } from './selectByIdMiddleware'
-export { getTodoByIdMiddleware } from './todo/getTodoByIdMiddleware'
+/** @format */
+
+export { selectByIdMiddleware } from './selectByIdMiddleware';
+export { getTodoByIdMiddleware } from './todo/getTodoByIdMiddleware';

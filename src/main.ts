@@ -1,89 +1,119 @@
-import express, { Request, Response } from 'express'
+/** @format */
+
+import express, { Request, Response } from 'express';
 import { RouteMethod } from './domain/enums/RouteMethodEnum';
-import { Route } from './domain/interficies/Route'
+import { Route } from './domain/interficies/Route';
 import RequestHandler from './handler';
 import { routes } from './routes';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
 class App {
     public app: express.Application;
 
-    constructor(){
+    constructor() {
         this.app = express();
-        this.app.use(express.json())
+        this.app.use(express.json());
 
-        this.setRoute()
+        this.setRoute();
     }
 
-    public create(){
-        const port = process.env.SERVER_PORT
+    public create() {
+        const port = process.env.SERVER_PORT;
 
-        this.app.listen(port, ()=>{
-            console.log(`Server is lisening localhost:${port}`)
-            console.log(routes)
-        })
+        this.app.listen(port, () => {
+            console.log(`Server is lisening localhost:${port}`);
+            console.log(routes);
+        });
     }
 
     private setRoute() {
-        const getRequest = (route: Route) =>{
-            this.app.get(route.endpoint, route.middlewares, async(req: Request, res: Response)=>{
-                console.log('GET', req.path)
-                console.log('Query params =', req.query)
-                console.log('Path params =', req.params)
+        const getRequest = (route: Route) => {
+            this.app.get(
+                route.endpoint,
+                route.middlewares,
+                async (req: Request, res: Response) => {
+                    console.log('GET', req.path);
+                    console.log('Query params =', req.query);
+                    console.log('Path params =', req.params);
 
-                const response = await new RequestHandler(route, req).call()
-                res.send(response)
-                // res.json(response)
-            })
-        }
+                    const response = await new RequestHandler(
+                        route,
+                        req,
+                    ).call();
+                    res.send(response);
+                    // res.json(response)
+                },
+            );
+        };
 
-        const putRequest = (route: Route) =>{
-            this.app.put(route.endpoint, route.middlewares, async(req: Request, res: Response)=>{
-                console.log('PUT', req.path)
-                console.log('Query params =', req.query)
-                console.log('Path params =', req.params)
-                console.log('Put body =', req.body)
+        const putRequest = (route: Route) => {
+            this.app.put(
+                route.endpoint,
+                route.middlewares,
+                async (req: Request, res: Response) => {
+                    console.log('PUT', req.path);
+                    console.log('Query params =', req.query);
+                    console.log('Path params =', req.params);
+                    console.log('Put body =', req.body);
 
-                const response = await new RequestHandler(route, req).call()
-                res.send(response)  
-            })
-        }
+                    const response = await new RequestHandler(
+                        route,
+                        req,
+                    ).call();
+                    res.send(response);
+                },
+            );
+        };
 
-        const postRequest = (route: Route) =>{
-            this.app.post(route.endpoint, route.middlewares, async(req: Request, res: Response)=>{
-                console.log('POST', req.path)
-                console.log('Query params =', req.query)
-                console.log('Path params =', req.params)
-                console.log('Poost body =', req.body)
+        const postRequest = (route: Route) => {
+            this.app.post(
+                route.endpoint,
+                route.middlewares,
+                async (req: Request, res: Response) => {
+                    console.log('POST', req.path);
+                    console.log('Query params =', req.query);
+                    console.log('Path params =', req.params);
+                    console.log('Poost body =', req.body);
 
-                const response = await new RequestHandler(route, req).call()
-                res.send(response) 
-            })
-        }
+                    const response = await new RequestHandler(
+                        route,
+                        req,
+                    ).call();
+                    res.send(response);
+                },
+            );
+        };
 
-        const deleteRequest = (route: Route) =>{
-            this.app.delete(route.endpoint, route.middlewares, async(req: Request, res: Response)=>{
-                console.log('DELETE', req.path)
-                console.log('Query params =', req.query)
-                console.log('Path params =', req.params)
+        const deleteRequest = (route: Route) => {
+            this.app.delete(
+                route.endpoint,
+                route.middlewares,
+                async (req: Request, res: Response) => {
+                    console.log('DELETE', req.path);
+                    console.log('Query params =', req.query);
+                    console.log('Path params =', req.params);
 
-                const response = await new RequestHandler(route, req).call()
-                res.send(response)
-            })
-        }
+                    const response = await new RequestHandler(
+                        route,
+                        req,
+                    ).call();
+                    res.send(response);
+                },
+            );
+        };
 
-        routes.forEach((route: Route)=>{
-            switch (route.method){
+        routes.forEach((route: Route) => {
+            switch (route.method) {
                 case RouteMethod.GET:
                     getRequest(route);
                     break;
-                
+
                 case RouteMethod.PUT:
                     putRequest(route);
                     break;
-                
+
                 case RouteMethod.POST:
                     postRequest(route);
                     break;
@@ -93,18 +123,15 @@ class App {
                     break;
 
                 default:
-                    console.log('Error: invalid route method')
+                    console.log('Error: invalid route method');
                     break;
             }
-        })
-
+        });
     }
-
 }
 
-const server = new App()
+const server = new App();
 server.create();
-
 
 // server.app.post("/todo", async(req, res) => {
 //     try {
@@ -120,7 +147,7 @@ server.create();
 
 // server.app.get("/todo", async(req, res)=>{
 //     try {
-//     const allTodos = await pool.query("SELECT * FROM todo") 
+//     const allTodos = await pool.query("SELECT * FROM todo")
 
 //     res.json(allTodos.rows)
 
@@ -156,7 +183,7 @@ server.create();
 //     } catch (err) {
 //         console.error(err)
 //     }
-// }) 
+// })
 
 // server.app.delete("/todo/:id", async(req, res)=>{
 //     try {
@@ -169,4 +196,4 @@ server.create();
 //     } catch (err) {
 //         console.error(err)
 //     }
-// }) 
+// })
