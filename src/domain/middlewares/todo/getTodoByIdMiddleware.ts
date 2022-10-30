@@ -1,5 +1,3 @@
-/** @format */
-
 import { param } from 'express-validator';
 
 export const getTodoByIdMiddleware = [

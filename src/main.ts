@@ -1,5 +1,3 @@
-/** @format */
-
 import express, { Request, Response } from 'express';
 import { RouteMethod } from './domain/enums/RouteMethodEnum';
 import { Route } from './domain/interficies/Route';

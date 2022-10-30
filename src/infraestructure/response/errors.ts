@@ -1,5 +1,3 @@
-/** @format */
-
 import { ErrorData } from '../../domain/interficies/ErrorData';
 
 export abstract class BaseError {

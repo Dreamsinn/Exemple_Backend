@@ -1,5 +1,3 @@
-/** @format */
-
 import { JSONSchemaType } from 'ajv';
 
 interface PostTodoyById {

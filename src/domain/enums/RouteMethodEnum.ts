@@ -1,5 +1,3 @@
-/** @format */
-
 export enum RouteMethod {
     GET = 'GET',
     POST = 'POST',

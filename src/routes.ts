@@ -1,5 +1,3 @@
-/** @format */
-
 import { RouteMethod } from './domain/enums/RouteMethodEnum';
 import { Route } from './domain/interficies/Route';
 import {

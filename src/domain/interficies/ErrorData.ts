@@ -1,5 +1,3 @@
-/** @format */
-
 import { ErrorLocation } from '../enums/ErrorLocationEnum';
 
 export interface ErrorData {
