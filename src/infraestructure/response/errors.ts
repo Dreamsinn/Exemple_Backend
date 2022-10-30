@@ -6,7 +6,6 @@ export abstract class BaseError{
     public bodyError: string | ErrorData[];
 
     constructor(bodyError: string | ErrorData[]){
-        console.log({bodyError})
         this.bodyError = bodyError
     }
 }

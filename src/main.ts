@@ -1,8 +1,7 @@
 import express, { Request, Response } from 'express'
-import { pool } from './db'
 import { RouteMethod } from './domain/enums/RouteMethodEnum';
 import { Route } from './domain/interficies/Route'
-import RequestHandler from './hanlder';
+import RequestHandler from './handler';
 import { routes } from './routes';
 import dotenv from 'dotenv'
 
@@ -34,7 +33,7 @@ class App {
                 console.log('Query params =', req.query)
                 console.log('Path params =', req.params)
 
-                const response = await new RequestHandler(route, req, pool).call()
+                const response = await new RequestHandler(route, req).call()
                 res.send(response)
                 // res.json(response)
             })
@@ -47,7 +46,7 @@ class App {
                 console.log('Path params =', req.params)
                 console.log('Put body =', req.body)
 
-                const response = await new RequestHandler(route, req, pool).call()
+                const response = await new RequestHandler(route, req).call()
                 res.send(response)  
             })
         }
@@ -59,7 +58,7 @@ class App {
                 console.log('Path params =', req.params)
                 console.log('Poost body =', req.body)
 
-                const response = await new RequestHandler(route, req, pool).call()
+                const response = await new RequestHandler(route, req).call()
                 res.send(response) 
             })
         }
@@ -70,7 +69,7 @@ class App {
                 console.log('Query params =', req.query)
                 console.log('Path params =', req.params)
 
-                const response = await new RequestHandler(route, req, pool).call()
+                const response = await new RequestHandler(route, req).call()
                 res.send(response)
             })
         }
@@ -103,7 +102,7 @@ class App {
 
 }
 
-export const server = new App()
+const server = new App()
 server.create();
 
 

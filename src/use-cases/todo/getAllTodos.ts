@@ -1,5 +1,5 @@
-export default class GetAllTodos{
-    public call(req: any, pool:any) {
+export class GetAllTodos{
+    public call(req: any) {
         console.log('ejecucion')
     }
 }

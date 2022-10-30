@@ -1,5 +1,5 @@
-export default class GetTodoById{
-    public call(req: any, pool:any) {
+export class GetTodoById{
+    public call(req: any) {
         console.log('ejecucion')
     }
 }
