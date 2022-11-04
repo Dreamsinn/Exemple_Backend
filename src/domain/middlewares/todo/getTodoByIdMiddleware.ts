@@ -1,7 +1,23 @@
 import { param } from 'express-validator';
 
 export const getTodoByIdMiddleware = [
-    param('id').isFloat(),
+    param('id', "Must be a number, or multiple numbers splitted by ','").custom(
+        (value) => {
+            if (Number(value)) {
+                return true;
+            }
+
+            if (value.includes(',')) {
+                const valuesArray = value.split(',');
+
+                const error = valuesArray.find((value: any) => !Number(value));
+
+                return error ? false : true;
+            }
+
+            return false;
+        },
+    ),
     // query('color')              //para querys solo hace falta especificarlo en el midleware, no en la ruta
     // .custom(value=>{     //en customs retrun false = error inespecifico ; throw new Error('Must be defined') = error + mensaje de error
     //     if(value === undefined){
