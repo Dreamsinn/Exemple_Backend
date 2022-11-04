@@ -1,8 +1,8 @@
-import { Request } from 'express';
 import { UseCase } from '../../domain/interficies/UseCase';
+import { db } from '../../main';
 
 export class GetAllTodos extends UseCase {
-    public call(req: Request) {
-        console.log('ejecucion');
+    public async call() {
+        return await db.query('SELECT * FROM todo');
     }
 }

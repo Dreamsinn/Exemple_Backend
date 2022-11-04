@@ -4,6 +4,7 @@ import { Route } from './domain/interficies/Route';
 import RequestHandler from './handler';
 import { routes } from './routes';
 import dotenv from 'dotenv';
+import { DataBaseConection } from './infraestructure/services/database';
 
 dotenv.config();
 
@@ -131,6 +132,8 @@ class App {
 const server = new App();
 server.create();
 
+export const db = new DataBaseConection();
+
 // server.app.post("/todo", async(req, res) => {
 //     try {
 //         const {description} = req.body;
@@ -159,7 +162,7 @@ server.create();
 //         // lo que se ponga en la ruta (:id) sera la clave del objeto, si :cosa y se busca cotche te vendra un objeto con, {cosa: cocthe}
 //         const {id} = req.params
 
-//         const todo = await pool.query("SELECT * FROM todo WHERE id = $1", [id])
+// const todo = await pool.query("SELECT * FROM todo WHERE id = $1", [id])
 
 //         res.json(todo.rows[0])
 
