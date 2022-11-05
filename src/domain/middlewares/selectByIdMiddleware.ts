@@ -1,3 +1,3 @@
 import { param } from 'express-validator';
 
-export const selectByIdMiddleware = [param('id').isFloat()];
+export const selectByIdMiddleware = [param('id').isUUID()];

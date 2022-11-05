@@ -1,21 +1,20 @@
 import { param } from 'express-validator';
+import { validate } from 'uuid';
 
 export const getTodoByIdMiddleware = [
-    param('id', "Must be a number, or multiple numbers splitted by ','").custom(
-        (value) => {
-            if (Number(value)) {
-                return true;
+    param('id', "Must be an uuid, or multiple uuids splitted by ','").custom(
+        (value: string) => {
+            const uuidList = value.split(',');
+
+            const error = uuidList.find(
+                (uuid: string) => validate(uuid) === false,
+            );
+
+            if (error || error === '') {
+                return false;
             }
 
-            if (value.includes(',')) {
-                const valuesArray = value.split(',');
-
-                const error = valuesArray.find((value: any) => !Number(value));
-
-                return error ? false : true;
-            }
-
-            return false;
+            return true;
         },
     ),
     // query('color')              //para querys solo hace falta especificarlo en el midleware, no en la ruta
