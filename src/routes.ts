@@ -3,6 +3,7 @@ import { Route } from './domain/interficies/Route';
 import {
     selectByIdMiddleware,
     getTodoByIdMiddleware,
+    paginationMiddleware,
 } from './domain/middlewares/';
 import { GetAllTodos, GetTodoById } from './use-cases';
 import { postTodoByIdSchema } from './domain/schemas';
@@ -12,7 +13,7 @@ const todoRoutes: Route[] = [
         endpoint: '/todo',
         method: RouteMethod.GET,
         handler: new GetAllTodos(),
-        middlewares: [],
+        middlewares: paginationMiddleware,
     },
     {
         endpoint: '/todo/:id',
