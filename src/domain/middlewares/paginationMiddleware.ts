@@ -2,7 +2,7 @@ import { query } from 'express-validator';
 import { DEFAUL_PAGINATION_QUERY_VALUES } from '../../use-cases/utility/pagination';
 import { PagginationSort } from '../enums/PaginationSort';
 
-const { limit, offset, sort } = DEFAUL_PAGINATION_QUERY_VALUES;
+const { limit, offset, sortBy, orderBy } = DEFAUL_PAGINATION_QUERY_VALUES;
 
 export const paginationMiddleware = [
     query('offset', `Optional, must be an Integer. By default: ${offset}`)
@@ -14,8 +14,8 @@ export const paginationMiddleware = [
         .optional(),
 
     query(
-        'sort',
-        `Optional, must be ${PagginationSort.ASC} or ${PagginationSort.DESC}. By default: ${sort}`,
+        'sortBy',
+        `Optional, must be ${PagginationSort.ASC} or ${PagginationSort.DESC}. By default: ${sortBy}`,
     )
         .custom((value) => {
             if (value.toUpperCase() in PagginationSort) {
@@ -23,5 +23,10 @@ export const paginationMiddleware = [
             }
             return false;
         })
+        .optional(),
+
+    query('orderBy', `Optional, must be a string. By default: ${orderBy}`)
+        .isString()
+        .notEmpty()
         .optional(),
 ];

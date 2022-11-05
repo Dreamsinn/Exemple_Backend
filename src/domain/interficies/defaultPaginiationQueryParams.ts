@@ -3,5 +3,6 @@ import { PagginationSort } from '../enums/PaginationSort';
 export interface DefaultPaginationQueryParams {
     readonly offset: number;
     readonly limit: number;
-    readonly sort: PagginationSort;
+    readonly sortBy: PagginationSort;
+    readonly orderBy: string;
 }

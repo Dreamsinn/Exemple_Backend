@@ -1,7 +1,8 @@
 import { PagginationSort } from '../enums/PaginationSort';
 
-export interface PagginationParams {
+export interface PaginationParams {
     limit: number | undefined;
-    offSet: number | undefined;
-    sort: PagginationSort | undefined;
+    offset: number | undefined;
+    sortBy: PagginationSort | undefined;
+    orderBy: string | undefined;
 }

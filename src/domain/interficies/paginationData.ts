@@ -1,3 +1,9 @@
+export interface PaginationData {
+    metadata: PaginationMetadata;
+    sortBy: string;
+    orderBy: string;
+}
+
 export interface PaginationMetadata {
     offset: number;
     limit: number;
