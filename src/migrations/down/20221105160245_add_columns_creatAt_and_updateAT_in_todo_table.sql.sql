@@ -1,0 +1,2 @@
+ALTER TABLE todo DROP COLUMN create_at;
+ALTER TABLE todo DROP COLUMN update_at;

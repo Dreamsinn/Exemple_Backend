@@ -1,0 +1,3 @@
+ALTER TABLE todo DROP COLUMN id;
+
+ALTER TABLE todo ADD COLUMN id UUID DEFAULT gen_random_uuid() PRIMARY KEY;
