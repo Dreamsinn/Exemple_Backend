@@ -1,2 +1,4 @@
 .env
 database.sql
+node_modules
+.idea
