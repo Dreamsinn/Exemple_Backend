@@ -1,4 +1,4 @@
-import { ErrorData } from '../../domain/interficies/ErrorData';
+import { ErrorData } from '../../domain/interficies/response/ErrorData';
 
 export abstract class BaseError {
     public statusCode = 500;

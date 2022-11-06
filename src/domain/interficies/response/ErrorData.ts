@@ -1,4 +1,4 @@
-import { ErrorLocation } from '../enums/ErrorLocationEnum';
+import { ErrorLocation } from '../../enums/ErrorLocationEnum';
 
 export interface ErrorData {
     location: ErrorLocation;

@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { RouteMethod } from './domain/enums/RouteMethodEnum';
 import { Route } from './domain/interficies/Route';
-import RequestHandler from './handler';
+import Handler from './handler';
 import { routes } from './routes';
 import dotenv from 'dotenv';
 import { DataBaseConection } from './infraestructure/services/database';
@@ -37,10 +37,7 @@ class App {
                     console.log('Query params =', req.query);
                     console.log('Path params =', req.params);
 
-                    const response = await new RequestHandler(
-                        route,
-                        req,
-                    ).call();
+                    const response = await new Handler(route, req).call();
                     res.send(response);
                     // res.json(response)
                 },
@@ -57,10 +54,7 @@ class App {
                     console.log('Path params =', req.params);
                     console.log('Put body =', req.body);
 
-                    const response = await new RequestHandler(
-                        route,
-                        req,
-                    ).call();
+                    const response = await new Handler(route, req).call();
                     res.send(response);
                 },
             );
@@ -76,10 +70,7 @@ class App {
                     console.log('Path params =', req.params);
                     console.log('Poost body =', req.body);
 
-                    const response = await new RequestHandler(
-                        route,
-                        req,
-                    ).call();
+                    const response = await new Handler(route, req).call();
                     res.send(response);
                 },
             );
@@ -94,10 +85,7 @@ class App {
                     console.log('Query params =', req.query);
                     console.log('Path params =', req.params);
 
-                    const response = await new RequestHandler(
-                        route,
-                        req,
-                    ).call();
+                    const response = await new Handler(route, req).call();
                     res.send(response);
                 },
             );

@@ -1,16 +1,24 @@
 import { Route } from './domain/interficies/Route';
 import { Request } from 'express';
-import { GeneralErrorResponse } from './infraestructure/response/response';
+import {
+    DeleteResponse,
+    GeneralErrorResponse,
+    GetResponse,
+    PostResponse,
+    PutResponse,
+} from './infraestructure/response/response';
 import {
     InternalServerException,
     InvalidRequestException,
 } from './infraestructure/response/errors';
 import Ajv, { AnySchema } from 'ajv';
 import { validationResult } from 'express-validator';
-import { ErrorData } from './domain/interficies/ErrorData';
+import { ErrorData } from './domain/interficies/response/ErrorData';
 import { ErrorLocation } from './domain/enums/ErrorLocationEnum';
+import { APIrespopnse } from './domain/interficies/response/APIresponse';
+import { UseCase } from './domain/interficies/UseCase';
 
-export default class RequestHandler {
+export default class Handler {
     private route: Route;
     private request: Request;
 
@@ -19,7 +27,7 @@ export default class RequestHandler {
         this.request = request;
     }
 
-    public async call() {
+    public async call(): Promise<APIrespopnse> {
         const { error, requestErrors } = this.requestValidations();
 
         if (error) {
@@ -29,7 +37,7 @@ export default class RequestHandler {
         }
 
         try {
-            return await this.route.handler.call(this.request);
+            return this.createResponse();
         } catch (err: any) {
             return new GeneralErrorResponse(
                 new InternalServerException(`${err.mensaje}`),
@@ -106,5 +114,56 @@ export default class RequestHandler {
         }
 
         return requestErrors;
+    }
+
+    private createResponse(): Promise<APIrespopnse> {
+        type Dictionary = {
+            [key: string]: (
+                handler: UseCase,
+                request: Request,
+            ) => Promise<APIrespopnse>;
+        };
+        const methodDictionary: Dictionary = {
+            GET: this.getRequest,
+            POST: this.postRequest,
+            PUT: this.putRequest,
+            DELETE: this.deleteRequest,
+        };
+
+        const methodRequest = methodDictionary[this.route.method];
+
+        return methodRequest(this.route.handler, this.request);
+    }
+
+    private async getRequest(
+        handler: UseCase,
+        request: Request,
+    ): Promise<APIrespopnse> {
+        const useCase = await handler.call(request);
+        return new GetResponse(useCase).create();
+    }
+
+    private async postRequest(
+        handler: UseCase,
+        request: Request,
+    ): Promise<APIrespopnse> {
+        const useCase = await handler.call(request);
+        return new PostResponse(useCase).create();
+    }
+
+    private async putRequest(
+        handler: UseCase,
+        request: Request,
+    ): Promise<APIrespopnse> {
+        const useCase = await handler.call(request);
+        return new PutResponse(useCase).create();
+    }
+
+    private async deleteRequest(
+        handler: UseCase,
+        request: Request,
+    ): Promise<APIrespopnse> {
+        const useCase = await handler.call(request);
+        return new DeleteResponse(useCase).create();
     }
 }
