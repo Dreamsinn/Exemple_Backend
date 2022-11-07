@@ -2,24 +2,33 @@ import { Request } from 'express';
 import { GetTodosOutput } from '../../domain/interficies/todo/GetTodosOutput';
 import { GetResponseData } from '../../domain/interficies/response/ResponseData';
 import { UseCase } from '../../domain/interficies/UseCase';
-import { db } from '../../main';
 import { Pagination } from '../utility/pagination';
 import { Todo } from '../../domain/interficies/todo/Todo';
+import { TodoService } from '../../infraestructure/services/todoService';
 
 export class GetAllTodos extends UseCase {
+    private todoService: TodoService;
+
+    constructor(service: TodoService) {
+        super();
+        this.todoService = service;
+    }
+
     public async call({
         query,
         ...req
     }: Request): Promise<GetResponseData<GetTodosOutput[]>> {
-        const count = await this.getNumberOfItemsInTable('todo');
+        const count = await this.todoService.countTodos();
 
         const { metadata, sortBy, orderBy } = new Pagination(
             query,
             count,
         ).call();
 
-        const response: Todo[] = await db.query(
-            `SELECT * FROM todo ORDER BY ${orderBy} ${sortBy} offset ${metadata.offset} LIMIT ${metadata.limit}`,
+        const response: Todo[] = await this.todoService.getAllTodos(
+            orderBy,
+            sortBy,
+            metadata,
         );
 
         const items = this.mapResponse(response);

@@ -3,9 +3,16 @@ import { GetResponseData } from '../../domain/interficies/response/ResponseData'
 import { GetTodosOutput } from '../../domain/interficies/todo/GetTodosOutput';
 import { Todo } from '../../domain/interficies/todo/Todo';
 import { UseCase } from '../../domain/interficies/UseCase';
-import { db } from '../../main';
+import { TodoService } from '../../infraestructure/services/todoService';
 
 export class GetTodoById extends UseCase {
+    private todoService: TodoService;
+
+    constructor(service: TodoService) {
+        super();
+        this.todoService = service;
+    }
+
     public async call({
         params,
         ...req
@@ -16,8 +23,8 @@ export class GetTodoById extends UseCase {
 
         const queryVariables = this.createqueryVariables(idsList);
 
-        const response: Todo[] = await db.query(
-            `SELECT * FROM todo WHERE id IN (${queryVariables})`,
+        const response: Todo[] = await this.todoService.getTodoByIds(
+            queryVariables,
             idsList,
         );
 

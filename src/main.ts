@@ -1,12 +1,10 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express, { Request, Response } from 'express';
 import { RouteMethod } from './domain/enums/RouteMethodEnum';
 import { Route } from './domain/interficies/Route';
 import Handler from './handler';
 import { routes } from './routes';
-import dotenv from 'dotenv';
-import { DataBaseConection } from './infraestructure/services/database';
-
-dotenv.config();
 
 class App {
     public app: express.Application;
@@ -117,10 +115,7 @@ class App {
     }
 }
 
-const server = new App();
-server.create();
-
-export const db = new DataBaseConection();
+new App().create();
 
 // server.app.post("/todo", async(req, res) => {
 //     try {
