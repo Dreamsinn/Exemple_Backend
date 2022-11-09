@@ -3,7 +3,7 @@ dotenv.config();
 import express, { Request, Response } from 'express';
 import { RouteMethod } from './domain/enums/RouteMethodEnum';
 import { Route } from './domain/interficies/Route';
-import Handler from './handler';
+import { DeleteHandler, GetHandler, PostHandler, PutHandler } from './handler';
 import { routes } from './routes';
 
 class App {
@@ -35,7 +35,7 @@ class App {
                     console.log('Query params =', req.query);
                     console.log('Path params =', req.params);
 
-                    const response = await new Handler(route, req).call();
+                    const response = await new GetHandler(route, req).call();
                     res.send(response);
                     // res.json(response)
                 },
@@ -52,7 +52,7 @@ class App {
                     console.log('Path params =', req.params);
                     console.log('Put body =', req.body);
 
-                    const response = await new Handler(route, req).call();
+                    const response = await new PutHandler(route, req).call();
                     res.send(response);
                 },
             );
@@ -68,7 +68,7 @@ class App {
                     console.log('Path params =', req.params);
                     console.log('Poost body =', req.body);
 
-                    const response = await new Handler(route, req).call();
+                    const response = await new PostHandler(route, req).call();
                     res.send(response);
                 },
             );
@@ -83,7 +83,7 @@ class App {
                     console.log('Query params =', req.query);
                     console.log('Path params =', req.params);
 
-                    const response = await new Handler(route, req).call();
+                    const response = await new DeleteHandler(route, req).call();
                     res.send(response);
                 },
             );
