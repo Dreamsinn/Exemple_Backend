@@ -22,7 +22,7 @@ export class GetHandler extends BaseHandler {
         super(route, request);
     }
 
-    public async call() {
+    public async call(): Promise<APIrespopnse> {
         const { error, requestErrors } = this.requestValidations();
 
         if (error) {
@@ -31,9 +31,13 @@ export class GetHandler extends BaseHandler {
             ).create();
         }
 
-        const useCase: GetResponseData<object | object[]> =
-            await this.route.handler.call(this.request);
-        return new GetResponse(useCase).create();
+        try {
+            const useCase: GetResponseData<object | object[]> =
+                await this.route.handler.call(this.request);
+            return new GetResponse(useCase).create();
+        } catch (err: any) {
+            return this.errorHandling(err);
+        }
     }
 }
 
@@ -51,10 +55,13 @@ export class PostHandler extends BaseHandler {
             ).create();
         }
 
-        const useCase: PostResponseData<object> = await this.route.handler.call(
-            this.request,
-        );
-        return new PostResponse(useCase).create();
+        try {
+            const useCase: PostResponseData<object> =
+                await this.route.handler.call(this.request);
+            return new PostResponse(useCase).create();
+        } catch (err: any) {
+            return this.errorHandling(err);
+        }
     }
 }
 
@@ -72,10 +79,14 @@ export class PutHandler extends BaseHandler {
             ).create();
         }
 
-        const useCase: PutResponseData = await this.route.handler.call(
-            this.request,
-        );
-        return new PutResponse(useCase).create();
+        try {
+            const useCase: PutResponseData = await this.route.handler.call(
+                this.request,
+            );
+            return new PutResponse(useCase).create();
+        } catch (err: any) {
+            return this.errorHandling(err);
+        }
     }
 }
 
@@ -93,9 +104,13 @@ export class DeleteHandler extends BaseHandler {
             ).create();
         }
 
-        const useCase: DeleteResponseData = await this.route.handler.call(
-            this.request,
-        );
-        return new DeleteResponse(useCase).create();
+        try {
+            const useCase: DeleteResponseData = await this.route.handler.call(
+                this.request,
+            );
+            return new DeleteResponse(useCase).create();
+        } catch (err: any) {
+            return this.errorHandling(err);
+        }
     }
 }

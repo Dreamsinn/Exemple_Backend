@@ -4,6 +4,17 @@ import { validationResult } from 'express-validator';
 import { Route } from './Route';
 import { ErrorData } from './response/ErrorData';
 import { ErrorLocation } from '../enums/ErrorLocationEnum';
+import {
+    GeneralErrorResponse,
+    NoContentResponse,
+} from '../../infraestructure/response/response';
+import {
+    InternalServerException,
+    InvalidRequestException,
+    NotFoundException,
+} from '../../infraestructure/response/errors';
+import { APIrespopnse } from './response/APIresponse';
+import { ErrorHandling } from '../enums/ErrorHandlingEnum';
 
 export default abstract class BaseHandler {
     protected route: Route;
@@ -83,5 +94,25 @@ export default abstract class BaseHandler {
         }
 
         return requestErrors;
+    }
+
+    protected errorHandling(err: any): APIrespopnse {
+        if (err.message === ErrorHandling.NOT_FOUND) {
+            return new GeneralErrorResponse(new NotFoundException()).create();
+        }
+
+        if (err.message === ErrorHandling.NO_CONTENT) {
+            return new NoContentResponse().create();
+        }
+
+        if (err.routine === 'errorMissingColumn') {
+            return new GeneralErrorResponse(
+                new InvalidRequestException(err.message),
+            ).create();
+        }
+
+        return new GeneralErrorResponse(
+            new InternalServerException(err.message),
+        ).create();
     }
 }

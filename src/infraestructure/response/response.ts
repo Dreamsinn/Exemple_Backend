@@ -38,6 +38,12 @@ export class GeneralErrorResponse extends BaseResponse {
     }
 }
 
+export class NoContentResponse extends BaseResponse {
+    constructor(message?: string) {
+        super(204, message ?? 'No Content', {});
+    }
+}
+
 export class GetResponse extends BaseResponse {
     constructor(data: GetResponseData<object>) {
         if (data.metadata) {
@@ -60,8 +66,8 @@ export class PutResponse extends BaseResponse {
     }
 }
 
-export class DeleteResponse extends BaseResponse {
+export class DeleteResponse extends NoContentResponse {
     constructor({ table }: DeleteResponseData) {
-        super(204, `${table} deleted successfully`, {});
+        super(`${table} deleted successfully`);
     }
 }
