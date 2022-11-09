@@ -5,6 +5,7 @@ import { RouteMethod } from './domain/enums/RouteMethodEnum';
 import { Route } from './domain/interficies/Route';
 import { DeleteHandler, GetHandler, PostHandler, PutHandler } from './handler';
 import { routes } from './routes';
+import rateLimit from 'express-rate-limit';
 
 class App {
     public app: express.Application;
@@ -12,6 +13,12 @@ class App {
     constructor() {
         this.app = express();
         this.app.use(express.json());
+
+        const limiter = rateLimit({
+            windowMs: 60 * 1000, // 1 minute
+            max: 30, // limit 30 request each IP in windowMS
+        });
+        this.app.use(limiter);
 
         this.setRoute();
     }
