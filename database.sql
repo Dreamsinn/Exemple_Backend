@@ -32,11 +32,67 @@
 
 
 -- -------------------------------
--- ## BD error manege
--- en database.ts
--- si catch que mire que mira si hay las palabras column(not found) o syntax(bad rquest)
+-- // server.app.post("/todo", async(req, res) => {
+-- //     try {
+-- //         const {description} = req.body;
+-- //         const newTodo = await pool.query('INSERT INTO todo (description) VALUES ($1) RETURNING *', [description]);
 
--- return new GeneralErrorResponse(
---                 new InternalServerException(`${err.mensaje}`),
---             ).create();
---             retorna undefined
+-- //         res.json(newTodo.rows[0])
+-- //         console.log(newTodo.rows[0])
+-- //     } catch (err) {
+-- //         console.error(err)
+-- //     }
+-- // })
+
+-- // server.app.get("/todo", async(req, res)=>{
+-- //     try {
+-- //     const allTodos = await pool.query("SELECT * FROM todo")
+
+-- //     res.json(allTodos.rows)
+
+-- //     } catch (err) {
+-- //         console.error(err)
+-- //     }
+-- // })
+
+-- // server.app.get("/todo/:id", async(req, res)=>{
+-- //     try {
+-- //         // lo que se ponga en la ruta (:id) sera la clave del objeto, si :cosa y se busca cotche te vendra un objeto con, {cosa: cocthe}
+-- //         const {id} = req.params
+
+-- // const todo = await pool.query("SELECT * FROM todo WHERE id = $1", [id])
+
+-- //         res.json(todo.rows[0])
+
+-- //     } catch (err) {
+-- //         console.error(err)
+-- //     }
+-- // })
+
+-- // server.app.put("/todo/:id", async(req, res)=>{
+-- //     try {
+-- //         const {id} = req.params // WHERE
+
+-- //         const {description} = req.body // SET
+
+-- //         const updateTodo = await pool.query("UPDATE todo SET description = $1 WHERE id = $2", [description, id])
+
+-- //         res.json('Todo was updated')
+
+-- //     } catch (err) {
+-- //         console.error(err)
+-- //     }
+-- // })
+
+-- // server.app.delete("/todo/:id", async(req, res)=>{
+-- //     try {
+-- //         const {id} = req.params // WHERE
+
+-- //         const deleteTodo = await pool.query("DELETE FROM todo WHERE id = $1", [id])
+
+-- //         res.json('Todo was susccesfully deleted')
+
+-- //     } catch (err) {
+-- //         console.error(err)
+-- //     }
+-- // })
