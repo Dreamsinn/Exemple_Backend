@@ -1,10 +1,10 @@
 import { JSONSchemaType } from 'ajv';
 
-interface PostTodoyById {
+interface PutTodoyById {
     description: string;
 }
 
-export const postTodoByIdSchema: JSONSchemaType<PostTodoyById> = {
+export const putTodoByIdSchema: JSONSchemaType<PutTodoyById> = {
     type: 'object',
 
     properties: {

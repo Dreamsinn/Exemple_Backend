@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { GetResponseData } from '../../domain/interficies/response/ResponseData';
-import { GetTodosOutput } from '../../domain/interficies/todo/GetTodosOutput';
+import { TodoOutput } from '../../domain/interficies/todo/TodoOutput';
 import { Todo } from '../../domain/interficies/todo/Todo';
 import { UseCase } from '../../domain/interficies/UseCase';
 import { TodoService } from '../../infraestructure/services/todoService';
@@ -16,7 +16,7 @@ export class GetTodoById extends UseCase {
     public async call({
         params,
         ...req
-    }: Request): Promise<GetResponseData<GetTodosOutput | GetTodosOutput[]>> {
+    }: Request): Promise<GetResponseData<TodoOutput | TodoOutput[]>> {
         const id: string = params.id;
 
         const idsList = id.split(',');
@@ -47,7 +47,7 @@ export class GetTodoById extends UseCase {
         return queryString.slice(0, -2);
     }
 
-    private mapResponse(response: Todo[]): GetTodosOutput[] {
+    private mapResponse(response: Todo[]): TodoOutput[] {
         const output = response.map((todo: Todo) => {
             if (todo.update_at) {
                 const mappedTodo = {

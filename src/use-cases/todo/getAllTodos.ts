@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { GetTodosOutput } from '../../domain/interficies/todo/GetTodosOutput';
+import { TodoOutput } from '../../domain/interficies/todo/TodoOutput';
 import { GetResponseData } from '../../domain/interficies/response/ResponseData';
 import { UseCase } from '../../domain/interficies/UseCase';
 import { Pagination } from '../utility/pagination';
@@ -17,7 +17,7 @@ export class GetAllTodos extends UseCase {
     public async call({
         query,
         ...req
-    }: Request): Promise<GetResponseData<GetTodosOutput[]>> {
+    }: Request): Promise<GetResponseData<TodoOutput[]>> {
         const count = await this.todoService.countTodos();
 
         const { metadata, sortBy, orderBy } = new Pagination(
@@ -36,7 +36,7 @@ export class GetAllTodos extends UseCase {
         return { items, metadata };
     }
 
-    private mapResponse(response: Todo[]): GetTodosOutput[] {
+    private mapResponse(response: Todo[]): TodoOutput[] {
         const output = response.map((todo: Todo) => {
             if (todo.update_at) {
                 const mappedTodo = {

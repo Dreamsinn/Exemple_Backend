@@ -41,4 +41,13 @@ export class TodoService extends DataBaseConection {
 
         return response;
     }
+
+    public async createTodo(description: string): Promise<Todo[]> {
+        const response: Todo[] = await this.query(
+            'INSERT INTO todo (description) VALUES ($1) RETURNING *',
+            [description],
+        );
+
+        return response;
+    }
 }

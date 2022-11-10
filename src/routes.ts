@@ -6,8 +6,9 @@ import {
     paginationMiddleware,
 } from './domain/middlewares/';
 import { GetAllTodos, GetTodoById } from './use-cases';
-import { postTodoByIdSchema } from './domain/schemas';
+import { postTodoSchema, putTodoByIdSchema } from './domain/schemas';
 import { TodoService } from './infraestructure/services/todoService';
+import { CreateTodo } from './use-cases/todo/createTodo';
 
 const todoService = new TodoService();
 const todoRoutes: Route[] = [
@@ -26,20 +27,15 @@ const todoRoutes: Route[] = [
     {
         endpoint: '/todo',
         method: RouteMethod.POST,
-        handler: new GetTodoById(todoService),
+        handler: new CreateTodo(todoService),
         middlewares: [],
-    },
-    {
-        endpoint: '/todo',
-        method: RouteMethod.POST,
-        handler: new GetTodoById(todoService),
-        middlewares: [],
+        schema: postTodoSchema,
     },
     {
         endpoint: '/todo/:id',
         method: RouteMethod.PUT,
         handler: new GetTodoById(todoService),
-        schema: postTodoByIdSchema,
+        schema: putTodoByIdSchema,
         middlewares: selectByIdMiddleware,
     },
     {
