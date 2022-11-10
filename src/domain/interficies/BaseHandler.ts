@@ -37,6 +37,14 @@ export default abstract class BaseHandler {
             requestErrors = this.bodyValitation(requestErrors, schema);
         }
 
+        const requestHasBody = Object.keys(this.request.body).length;
+        if (!this.route.schema && requestHasBody) {
+            requestErrors.push({
+                location: ErrorLocation.BODY,
+                message: 'This endpoint does not admit bodies',
+            });
+        }
+
         return {
             error: requestErrors.length,
             requestErrors,
