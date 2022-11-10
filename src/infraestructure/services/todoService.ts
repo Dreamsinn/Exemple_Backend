@@ -66,4 +66,17 @@ export class TodoService extends DataBaseConection {
 
         return response;
     }
+
+    public async deleteTodoById(id: string): Promise<void> {
+        const response = await this.query(
+            'DELETE FROM todo WHERE id = $1 RETURNING *',
+            [id],
+        );
+
+        if (!response.length) {
+            throw new Error(ErrorHandling.NOT_FOUND);
+        }
+
+        return;
+    }
 }

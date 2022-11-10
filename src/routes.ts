@@ -10,6 +10,7 @@ import { postTodoSchema, putTodoByIdSchema } from './domain/schemas';
 import { TodoService } from './infraestructure/services/todoService';
 import { CreateTodo } from './use-cases/todo/createTodo';
 import { UpdateTodoById } from './use-cases/todo/updateTodoById';
+import { DeleteTodoById } from './use-cases/todo/deleteTodoById';
 
 const todoService = new TodoService();
 const todoRoutes: Route[] = [
@@ -42,7 +43,7 @@ const todoRoutes: Route[] = [
     {
         endpoint: '/todo/:id',
         method: RouteMethod.DELETE,
-        handler: new GetTodoById(todoService),
+        handler: new DeleteTodoById(todoService),
         middlewares: selectByIdMiddleware,
     },
 ];

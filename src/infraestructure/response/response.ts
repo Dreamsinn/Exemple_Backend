@@ -68,6 +68,7 @@ export class PutResponse extends BaseResponse {
 
 export class DeleteResponse extends NoContentResponse {
     constructor({ table }: DeleteResponseData) {
+        console.log({ table });
         super(`${table} deleted successfully`);
     }
 }
