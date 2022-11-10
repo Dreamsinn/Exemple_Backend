@@ -9,6 +9,7 @@ import { GetAllTodos, GetTodoById } from './use-cases';
 import { postTodoSchema, putTodoByIdSchema } from './domain/schemas';
 import { TodoService } from './infraestructure/services/todoService';
 import { CreateTodo } from './use-cases/todo/createTodo';
+import { UpdateTodoById } from './use-cases/todo/updateTodoById';
 
 const todoService = new TodoService();
 const todoRoutes: Route[] = [
@@ -34,7 +35,7 @@ const todoRoutes: Route[] = [
     {
         endpoint: '/todo/:id',
         method: RouteMethod.PUT,
-        handler: new GetTodoById(todoService),
+        handler: new UpdateTodoById(todoService),
         schema: putTodoByIdSchema,
         middlewares: selectByIdMiddleware,
     },

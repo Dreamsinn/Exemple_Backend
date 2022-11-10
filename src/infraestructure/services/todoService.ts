@@ -50,4 +50,20 @@ export class TodoService extends DataBaseConection {
 
         return response;
     }
+
+    public async updateTodoById(
+        description: string,
+        id: string,
+    ): Promise<Todo[]> {
+        const response: Todo[] = await this.query(
+            'UPDATE todo SET description = $1, update_at = $3 WHERE id = $2 RETURNING *',
+            [description, id, new Date()],
+        );
+
+        if (!response.length) {
+            throw new Error(ErrorHandling.NOT_FOUND);
+        }
+
+        return response;
+    }
 }
