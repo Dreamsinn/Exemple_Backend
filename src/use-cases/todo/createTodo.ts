@@ -5,6 +5,7 @@ import { TodoOutput } from '../../domain/interficies/todo/TodoOutput';
 import { UseCase } from '../UseCase';
 import { PostTodoBody } from '../../domain/schemas';
 import { TodoService } from '../../infraestructure/services/todoService';
+import { UseCaseData } from '../../domain/interficies/UseCaseData';
 
 export class CreateTodo extends UseCase {
     private todoService: TodoService;
@@ -14,9 +15,10 @@ export class CreateTodo extends UseCase {
         this.todoService = service;
     }
 
-    public async call(
-        body: PostTodoBody,
-    ): Promise<PostResponseData<TodoOutput>> {
+    public async call({
+        body,
+        ...props
+    }: UseCaseData<PostTodoBody>): Promise<PostResponseData<TodoOutput>> {
         const { description } = body;
         const response: Todo[] = await this.todoService.createTodo(description);
 

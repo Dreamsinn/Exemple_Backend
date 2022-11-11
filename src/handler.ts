@@ -16,6 +16,7 @@ import {
     PostResponseData,
     PutResponseData,
 } from './domain/interficies/response/ResponseData';
+import { UseCaseData } from './domain/interficies/UseCaseData';
 
 export class GetHandler extends BaseHandler {
     constructor(route: Route, request: Request) {
@@ -32,9 +33,13 @@ export class GetHandler extends BaseHandler {
         }
 
         try {
-            const { body, query, params } = this.request;
+            const { body, query, params }: UseCaseData<any> = this.request;
             const useCase: GetResponseData<object | object[]> =
-                await this.route.handler.call(body, query, params);
+                await this.route.handler.call({
+                    body,
+                    query,
+                    params,
+                });
 
             return new GetResponse(useCase).create();
         } catch (err: any) {
@@ -58,9 +63,13 @@ export class PostHandler extends BaseHandler {
         }
 
         try {
-            const { body, query, params } = this.request;
+            const { body, query, params }: UseCaseData<any> = this.request;
             const useCase: PostResponseData<object> =
-                await this.route.handler.call(body, query, params);
+                await this.route.handler.call({
+                    body,
+                    query,
+                    params,
+                });
 
             return new PostResponse(useCase).create();
         } catch (err: any) {
@@ -84,12 +93,12 @@ export class PutHandler extends BaseHandler {
         }
 
         try {
-            const { body, query, params } = this.request;
-            const useCase: PutResponseData = await this.route.handler.call(
+            const { body, query, params }: UseCaseData<any> = this.request;
+            const useCase: PutResponseData = await this.route.handler.call({
                 body,
                 query,
                 params,
-            );
+            });
 
             return new PutResponse(useCase).create();
         } catch (err: any) {
@@ -113,12 +122,12 @@ export class DeleteHandler extends BaseHandler {
         }
 
         try {
-            const { body, query, params } = this.request;
-            const useCase: DeleteResponseData = await this.route.handler.call(
+            const { body, query, params }: UseCaseData<any> = this.request;
+            const useCase: DeleteResponseData = await this.route.handler.call({
                 body,
                 query,
                 params,
-            );
+            });
 
             return new DeleteResponse(useCase).create();
         } catch (err: any) {

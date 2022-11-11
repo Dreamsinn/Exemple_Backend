@@ -1,10 +1,5 @@
-import { ParamsDictionary } from 'express-serve-static-core';
-import QueryString from 'qs';
+import { UseCaseData } from '../domain/interficies/UseCaseData';
 
 export abstract class UseCase {
-    abstract call(
-        body?: any,
-        query?: QueryString.ParsedQs,
-        params?: ParamsDictionary,
-    ): any;
+    abstract call({ body, query, params }: UseCaseData<any>): Promise<any>;
 }
