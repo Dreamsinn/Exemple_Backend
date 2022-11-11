@@ -119,7 +119,7 @@ export class Pagination {
     }
 
     private nextLinkCalculation(lastPage: number): string {
-        const lastPageOffset = Math.floor(lastPage) * this.limit;
+        const lastPageOffset = Math.floor(lastPage - 1) * this.limit;
         let offset = this.offset + this.limit;
 
         offset = offset < lastPageOffset ? offset : lastPageOffset;
@@ -128,7 +128,7 @@ export class Pagination {
     }
 
     private lastLinkCalculation(lastPage: number): string {
-        const offSet = Math.floor(lastPage) * this.limit;
+        const offSet = Math.floor(lastPage - 1) * this.limit;
 
         return `?offset=${offSet}&limit=${this.limit}`;
     }
