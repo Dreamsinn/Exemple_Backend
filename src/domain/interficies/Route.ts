@@ -1,7 +1,7 @@
 import { AnySchema } from 'ajv';
 import { ValidationChain } from 'express-validator';
 import { RouteMethod } from '../enums/RouteMethodEnum';
-import { UseCase } from './UseCase';
+import { UseCase } from '../../use-cases';
 
 export interface Route {
     method: RouteMethod;

@@ -9,7 +9,7 @@ import {
 } from './infraestructure/response/response';
 import { InvalidRequestException } from './infraestructure/response/errors';
 import { APIrespopnse } from './domain/interficies/response/APIresponse';
-import BaseHandler from './domain/interficies/BaseHandler';
+import BaseHandler from './infraestructure/BaseHandler';
 import {
     DeleteResponseData,
     GetResponseData,

@@ -2,7 +2,7 @@ import { ParamsDictionary } from 'express-serve-static-core';
 import { GetResponseData } from '../../domain/interficies/response/ResponseData';
 import { TodoOutput } from '../../domain/interficies/todo/TodoOutput';
 import { Todo } from '../../domain/interficies/todo/Todo';
-import { UseCase } from '../../domain/interficies/UseCase';
+import { UseCase } from '../UseCase';
 import { TodoService } from '../../infraestructure/services/todoService';
 
 export class GetTodoById extends UseCase {

@@ -5,12 +5,15 @@ import {
     getTodoByIdMiddleware,
     paginationMiddleware,
 } from './domain/middlewares/';
-import { GetAllTodos, GetTodoById } from './use-cases';
+import {
+    GetAllTodos,
+    GetTodoById,
+    UpdateTodoById,
+    DeleteTodoById,
+} from './use-cases';
 import { postTodoSchema, putTodoByIdSchema } from './domain/schemas';
 import { TodoService } from './infraestructure/services/todoService';
 import { CreateTodo } from './use-cases/todo/createTodo';
-import { UpdateTodoById } from './use-cases/todo/updateTodoById';
-import { DeleteTodoById } from './use-cases/todo/deleteTodoById';
 
 const todoService = new TodoService();
 const todoRoutes: Route[] = [

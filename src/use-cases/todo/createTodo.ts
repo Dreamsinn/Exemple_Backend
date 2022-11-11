@@ -2,7 +2,7 @@ import { TablesName } from '../../domain/enums/TablesNameEnum';
 import { PostResponseData } from '../../domain/interficies/response/ResponseData';
 import { Todo } from '../../domain/interficies/todo/Todo';
 import { TodoOutput } from '../../domain/interficies/todo/TodoOutput';
-import { UseCase } from '../../domain/interficies/UseCase';
+import { UseCase } from '../UseCase';
 import { PostTodoBody } from '../../domain/schemas';
 import { TodoService } from '../../infraestructure/services/todoService';
 

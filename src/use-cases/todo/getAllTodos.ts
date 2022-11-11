@@ -1,6 +1,6 @@
 import { TodoOutput } from '../../domain/interficies/todo/TodoOutput';
 import { GetResponseData } from '../../domain/interficies/response/ResponseData';
-import { UseCase } from '../../domain/interficies/UseCase';
+import { UseCase } from '../UseCase';
 import { Pagination } from '../utility/pagination';
 import { Todo } from '../../domain/interficies/todo/Todo';
 import { TodoService } from '../../infraestructure/services/todoService';

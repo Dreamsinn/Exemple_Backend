@@ -1,20 +1,17 @@
 import { Request } from 'express';
 import Ajv, { AnySchema } from 'ajv';
 import { validationResult } from 'express-validator';
-import { Route } from './Route';
-import { ErrorData } from './response/ErrorData';
-import { ErrorLocation } from '../enums/ErrorLocationEnum';
-import {
-    GeneralErrorResponse,
-    NoContentResponse,
-} from '../../infraestructure/response/response';
+import { Route } from '../domain/interficies/Route';
+import { ErrorData } from '../domain/interficies/response/ErrorData';
+import { ErrorLocation } from '../domain/enums/ErrorLocationEnum';
+import { GeneralErrorResponse, NoContentResponse } from './response/response';
 import {
     InternalServerException,
     InvalidRequestException,
     NotFoundException,
-} from '../../infraestructure/response/errors';
-import { APIrespopnse } from './response/APIresponse';
-import { ErrorHandling } from '../enums/ErrorHandlingEnum';
+} from './response/errors';
+import { APIrespopnse } from '../domain/interficies/response/APIresponse';
+import { ErrorHandling } from '../domain/enums/ErrorHandlingEnum';
 
 export default abstract class BaseHandler {
     protected route: Route;

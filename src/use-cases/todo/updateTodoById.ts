@@ -1,7 +1,7 @@
 import { ParamsDictionary } from 'express-serve-static-core';
 import { TablesName } from '../../domain/enums/TablesNameEnum';
 import { PutResponseData } from '../../domain/interficies/response/ResponseData';
-import { UseCase } from '../../domain/interficies/UseCase';
+import { UseCase } from '../UseCase';
 import { PutTodoByIdBody } from '../../domain/schemas';
 import { TodoService } from '../../infraestructure/services/todoService';
 
