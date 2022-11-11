@@ -32,8 +32,10 @@ export class GetHandler extends BaseHandler {
         }
 
         try {
+            const { body, query, params } = this.request;
             const useCase: GetResponseData<object | object[]> =
-                await this.route.handler.call(this.request);
+                await this.route.handler.call(body, query, params);
+
             return new GetResponse(useCase).create();
         } catch (err: any) {
             return this.errorHandling(err);
@@ -56,8 +58,10 @@ export class PostHandler extends BaseHandler {
         }
 
         try {
+            const { body, query, params } = this.request;
             const useCase: PostResponseData<object> =
-                await this.route.handler.call(this.request);
+                await this.route.handler.call(body, query, params);
+
             return new PostResponse(useCase).create();
         } catch (err: any) {
             return this.errorHandling(err);
@@ -80,9 +84,13 @@ export class PutHandler extends BaseHandler {
         }
 
         try {
+            const { body, query, params } = this.request;
             const useCase: PutResponseData = await this.route.handler.call(
-                this.request,
+                body,
+                query,
+                params,
             );
+
             return new PutResponse(useCase).create();
         } catch (err: any) {
             return this.errorHandling(err);
@@ -105,9 +113,13 @@ export class DeleteHandler extends BaseHandler {
         }
 
         try {
+            const { body, query, params } = this.request;
             const useCase: DeleteResponseData = await this.route.handler.call(
-                this.request,
+                body,
+                query,
+                params,
             );
+
             return new DeleteResponse(useCase).create();
         } catch (err: any) {
             return this.errorHandling(err);

@@ -1,9 +1,9 @@
-import { Request } from 'express';
 import { TablesName } from '../../domain/enums/TablesNameEnum';
 import { PostResponseData } from '../../domain/interficies/response/ResponseData';
 import { Todo } from '../../domain/interficies/todo/Todo';
 import { TodoOutput } from '../../domain/interficies/todo/TodoOutput';
 import { UseCase } from '../../domain/interficies/UseCase';
+import { PostTodoBody } from '../../domain/schemas';
 import { TodoService } from '../../infraestructure/services/todoService';
 
 export class CreateTodo extends UseCase {
@@ -14,11 +14,10 @@ export class CreateTodo extends UseCase {
         this.todoService = service;
     }
 
-    public async call({
-        query,
-        ...req
-    }: Request): Promise<PostResponseData<TodoOutput>> {
-        const { description } = req.body;
+    public async call(
+        body: PostTodoBody,
+    ): Promise<PostResponseData<TodoOutput>> {
+        const { description } = body;
         const response: Todo[] = await this.todoService.createTodo(description);
 
         const items = this.formatResponse(response);

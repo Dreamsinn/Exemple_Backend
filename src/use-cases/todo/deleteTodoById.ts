@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { ParamsDictionary } from 'express-serve-static-core';
 import { TablesName } from '../../domain/enums/TablesNameEnum';
 import { DeleteResponseData } from '../../domain/interficies/response/ResponseData';
 import { UseCase } from '../../domain/interficies/UseCase';
@@ -12,10 +12,7 @@ export class DeleteTodoById extends UseCase {
         this.todoService = service;
     }
 
-    public async call({
-        params,
-        ...req
-    }: Request): Promise<DeleteResponseData> {
+    public async call(params: ParamsDictionary): Promise<DeleteResponseData> {
         const id: string = params.id;
         await this.todoService.deleteTodoById(id);
 

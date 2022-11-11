@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { ParamsDictionary } from 'express-serve-static-core';
 import { GetResponseData } from '../../domain/interficies/response/ResponseData';
 import { TodoOutput } from '../../domain/interficies/todo/TodoOutput';
 import { Todo } from '../../domain/interficies/todo/Todo';
@@ -13,10 +13,9 @@ export class GetTodoById extends UseCase {
         this.todoService = service;
     }
 
-    public async call({
-        params,
-        ...req
-    }: Request): Promise<GetResponseData<TodoOutput | TodoOutput[]>> {
+    public async call(
+        params: ParamsDictionary,
+    ): Promise<GetResponseData<TodoOutput | TodoOutput[]>> {
         const id: string = params.id;
 
         const idsList = id.split(',');

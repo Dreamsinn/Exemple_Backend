@@ -7,10 +7,11 @@ import { DeleteHandler, GetHandler, PostHandler, PutHandler } from './handler';
 import { routes } from './routes';
 import rateLimit from 'express-rate-limit';
 
-class App {
+export class App {
     public app: express.Application;
+    private routes: Route[];
 
-    constructor() {
+    constructor(routes: Route[]) {
         this.app = express();
         this.app.use(express.json());
 
@@ -20,6 +21,8 @@ class App {
         });
         this.app.use(limiter);
 
+        this.routes = routes;
+
         this.setRoute();
     }
 
@@ -28,7 +31,7 @@ class App {
 
         this.app.listen(port, () => {
             console.log(`Server is lisening localhost:${port}`);
-            console.log(routes);
+            console.log(this.routes);
         });
     }
 
@@ -95,7 +98,7 @@ class App {
             );
         };
 
-        routes.forEach((route: Route) => {
+        this.routes.forEach((route: Route) => {
             switch (route.method) {
                 case RouteMethod.GET:
                     getRequest(route);
@@ -121,4 +124,4 @@ class App {
     }
 }
 
-new App().create();
+new App(routes).create();

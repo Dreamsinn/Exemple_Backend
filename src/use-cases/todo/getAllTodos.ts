@@ -1,10 +1,10 @@
-import { Request } from 'express';
 import { TodoOutput } from '../../domain/interficies/todo/TodoOutput';
 import { GetResponseData } from '../../domain/interficies/response/ResponseData';
 import { UseCase } from '../../domain/interficies/UseCase';
 import { Pagination } from '../utility/pagination';
 import { Todo } from '../../domain/interficies/todo/Todo';
 import { TodoService } from '../../infraestructure/services/todoService';
+import QueryString from 'qs';
 
 export class GetAllTodos extends UseCase {
     private todoService: TodoService;
@@ -14,10 +14,9 @@ export class GetAllTodos extends UseCase {
         this.todoService = service;
     }
 
-    public async call({
-        query,
-        ...req
-    }: Request): Promise<GetResponseData<TodoOutput[]>> {
+    public async call(
+        query: QueryString.ParsedQs,
+    ): Promise<GetResponseData<TodoOutput[]>> {
         const count = await this.todoService.countTodos();
 
         const { metadata, sortBy, orderBy } = new Pagination(

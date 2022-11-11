@@ -1,10 +1,10 @@
 import { JSONSchemaType } from 'ajv';
 
-interface PostTodoy {
+export interface PostTodoBody {
     description: string;
 }
 
-export const postTodoSchema: JSONSchemaType<PostTodoy> = {
+export const postTodoSchema: JSONSchemaType<PostTodoBody> = {
     type: 'object',
 
     properties: {

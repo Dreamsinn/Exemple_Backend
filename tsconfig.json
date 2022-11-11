@@ -11,6 +11,6 @@
         "noUnusedLocals": true,
         "esModuleInterop": true
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "__test__"],
     "exclude": ["node_modules"]
 }
