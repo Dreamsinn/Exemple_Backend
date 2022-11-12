@@ -40,7 +40,7 @@ export class GeneralErrorResponse extends BaseResponse {
 
 export class NoContentResponse extends BaseResponse {
     constructor(message?: string) {
-        super(204, message ?? 'No Content', {});
+        super(204, message ?? 'No content', {});
     }
 }
 
