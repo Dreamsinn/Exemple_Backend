@@ -18,7 +18,6 @@ export class GetAllTodos extends UseCase {
         query,
         ...props
     }: UseCaseData<any>): Promise<GetResponseData<TodoOutput[]>> {
-        console.log(query);
         const count = await this.todoService.countTodos();
 
         const { metadata, sortBy, orderBy } = new Pagination(
