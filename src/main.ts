@@ -75,7 +75,7 @@ export class App {
                     console.log('POST', req.path);
                     console.log('Query params =', req.query);
                     console.log('Path params =', req.params);
-                    console.log('Poost body =', req.body);
+                    console.log('Post body =', req.body);
 
                     const response = await new PostHandler(route, req).call();
                     res.send(response);

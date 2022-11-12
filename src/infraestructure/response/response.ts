@@ -47,9 +47,9 @@ export class NoContentResponse extends BaseResponse {
 export class GetResponse extends BaseResponse {
     constructor(data: GetResponseData<object>) {
         if (data.metadata) {
-            super(200, 'Sucess', data);
+            super(200, 'Success', data);
         } else {
-            super(200, 'Sucess', data.items);
+            super(200, 'Success', data.items);
         }
     }
 }
