@@ -12,7 +12,8 @@
         "test": "jest --runInBand",
         "start": "ts-node ./src/main",
         "format": "prettier --write 'src/**/*.ts'",
-        "lint": "eslint . --ext .ts"
+        "lint": "eslint . --ext .ts",
+        "prepare": "husky install"
     },
     "author": "",
     "license": "ISC",
