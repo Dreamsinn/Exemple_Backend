@@ -6,6 +6,8 @@ import { Route } from './domain/interficies/Route';
 import { DeleteHandler, GetHandler, PostHandler, PutHandler } from './handler';
 import { routes } from './routes';
 import rateLimit from 'express-rate-limit';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const cors = require('cors');
 
 export class App {
     public app: express.Application;
@@ -14,6 +16,7 @@ export class App {
     constructor(routes: Route[]) {
         this.app = express();
         this.app.use(express.json());
+        this.app.use(cors()); // others app can use this api with this
 
         const limiter = rateLimit({
             windowMs: 60 * 1000, // 1 minute
